@@ -46,6 +46,14 @@ GitHub Pages does not offer private access control for this personally owned rep
 
 The **Test private dashboard** workflow builds and tests the application, then retains a downloadable standalone HTML artifact in this private repository's Actions run for seven days. Artifacts are downloadable review files, not live websites. Private backups are never uploaded as artifacts.
 
+## Share a browser link with friends
+
+GitHub Pages serves a rendered dashboard with its own browser address; GitHub's normal file view only shows HTML source. The optional **Publish shareable dashboard** workflow is manually triggered and publishes only the clean, built dashboard. It does not upload private backups or browser-local records.
+
+To enable sharing, configure **Settings → Pages → Source: GitHub Actions**, then run **Actions → Publish shareable dashboard → Run workflow** on `main`. The deployment job supplies the actual site URL. On a public repository, Pages hosting is free. Pages from a private repository requires an eligible paid plan, and the resulting personal-repository Pages site is still public. Do not change repository visibility without the owner's explicit approval.
+
+The GitHub integration used to prepare this project cannot administer Pages (HTTP 403), so a repository owner must enable Pages through GitHub settings. Until that is done and deployment succeeds, no live site is available. A Codespaces private preview is a separate option and requires GitHub authentication; it is not a public share link.
+
 ## Data and updates
 
 There are no embedded workouts or personal health records in the public source. Entries and imported backups are saved only in that browser's local storage; they are not uploaded to GitHub and do not sync to other devices. Export JSON backups before moving to a new browser or address. Import them from **Data & privacy**. The public version uses its own storage key and never automatically reads data from older dashboard versions.
