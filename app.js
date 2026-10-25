@@ -64,7 +64,6 @@ function load() {
 let db = load();
 let weekOffset = 0;
 let activityRange = 'rolling';
-let activePreset = '1000';
 let returnFocus = null;
 function notify(message) { $('toast').textContent = message; $('toast').classList.add('show'); clearTimeout(notify.timer); notify.timer = setTimeout(() => $('toast').classList.remove('show'), 3500); }
 function save() {
@@ -255,10 +254,18 @@ $('fuelDate').value = dateKey();
 $('fuelForm').onsubmit = event => { event.preventDefault(); if (commit({ ...db, fuel: [...db.fuel, { id: uid('fuel'), date: $('fuelDate').value, when: $('fuelWhen').value, content: $('fuelContent').value.trim() }] })) { $('fuelContent').value = ''; renderFuel(); notify('Nutrition note saved'); } };
 
 function renderMilestones() {
-  $('milestoneCards').innerHTML = [['1 km', 1, '⚡'], ['3 km', 3, '✦'], ['5 km', 5, '🔥'], ['10 km', 10, '↗'], ['15 km', 15, '⛰'], ['Half marathon', 21.0975, '🏅'], ['25 km', 25, '✧'], ['Marathon', 42.195, '🏆']].map(([name, distance, icon]) => {
-    const results = db.workouts.filter(w => w.sport === 'run' && (w.evidence === 'confirmed' || (w.officialDurationSec && w.officialDistanceKm)) && Math.abs((w.officialDistanceKm || w.distanceKm) - distance) < (distance > 20 ? 0.08 : 0.025) && (w.officialDurationSec || w.durationSec) > 0).sort((a, b) => (a.officialDurationSec || a.durationSec) - (b.officialDurationSec || b.durationSec));
+  $('milestoneCards').innerHTML = [['400 m', 0.4, '⚡'], ['1 km', 1, '⚡'], ['1 mile', 1.609344, '✦'], ['3 km', 3, '✦'], ['5 km', 5, '🔥'], ['10 km', 10, '↗'], ['15 km', 15, '⛰'], ['20 km', 20, '⛰'], ['Half marathon', 21.0975, '🏅'], ['25 km', 25, '✧'], ['Marathon', 42.195, '🏆'], ['50 km', 50, '🏆']].map(([name, distance, icon]) => {
+    const results = db.workouts.map(w => {
+      // Keep official distance/time together; never mix a partial official result with GPS data.
+      const official = w.officialDistanceKm > 0 && w.officialDurationSec > 0;
+      return { ...w, resultDistance: official ? w.officialDistanceKm : w.distanceKm, resultTime: official ? w.officialDurationSec : w.durationSec, official };
+    }).filter(w => {
+      // Allow nearest-metre rounding and small GPS overrun, but not a shorter partial effort.
+      const tolerance = Math.min(0.08, distance * 0.005);
+      return w.sport === 'run' && (w.evidence === 'confirmed' || w.official) && w.resultTime > 0 && w.resultDistance >= distance - 0.0005 - 1e-9 && w.resultDistance <= distance + tolerance + 1e-9;
+    }).sort((a, b) => a.resultTime - b.resultTime);
     const best = results[0];
-    return `<div class="milestone col3"><div class="between"><span class="emoji">${icon}</span><span class="pill ${best ? '' : 'gray'}">${best ? 'Fastest logged' : 'No timed result'}</span></div><div class="small dim" style="margin-top:12px">${name}</div><b>${best ? fmtTime(best.officialDurationSec || best.durationSec) : '—:—'}</b><em>${best ? esc(best.date) + ' · ' + esc(best.source) : 'Add a confirmed timed effort'}</em></div>`;
+    return `<div class="milestone col3"><div class="between"><span class="emoji">${icon}</span><span class="pill ${best ? '' : 'gray'}">${best ? 'Fastest logged' : 'No timed result'}</span></div><div class="small dim" style="margin-top:12px">${name}</div><b>${best ? fmtTime(best.resultTime) : '—:—'}</b><em>${best ? esc(best.date) + ' · ' + esc(best.source) : 'Add a confirmed timed effort'}</em></div>`;
   }).join('');
 }
 function renderReviews() {
@@ -267,34 +274,40 @@ function renderReviews() {
 }
 
 function parsePace(value) { const match = String(value).trim().match(/^(\d{1,3}):(\d{2})$/); return match && Number(match[2]) < 60 && Number(match[1]) * 60 + Number(match[2]) > 0 ? Number(match[1]) * 60 + Number(match[2]) : null; }
+function strategyAtDistance(distance, runPace, walkPace, runKm, walkSeconds) {
+  if (walkSeconds === 0) return { seconds: distance * runPace, walks: 0 };
+  const cycleKm = runKm + walkSeconds / walkPace;
+  let cycles = Math.floor(distance / cycleKm);
+  let remainder = distance - cycles * cycleKm;
+  // Floating-point roundoff must not add a phantom walk at the finish line.
+  if (cycleKm - remainder < 1e-9) { cycles++; remainder = 0; }
+  if (remainder < 1e-9) remainder = 0;
+  const walkKm = Math.max(0, remainder - runKm);
+  return {
+    seconds: cycles * (runKm * runPace + walkSeconds) + Math.min(remainder, runKm) * runPace + walkKm * walkPace,
+    walks: cycles + (walkKm > 1e-9 ? 1 : 0),
+  };
+}
 function updateProjection() {
   const rp = parsePace($('runPace').value), wp = parsePace($('walkPace').value), seg = Number($('runSegment').value), ws = Number($('walkBreak').value), extra = Number($('raceExtra').value), distance = Number($('raceDistance').value);
   if (!rp || !wp || !Number.isFinite(seg) || seg <= 0 || seg > 30000 || !Number.isFinite(ws) || ws < 0 || ws > 1000 || !Number.isFinite(extra) || extra < 0 || extra > 120) {
     $('raceProjected').textContent = 'Check inputs'; $('raceOverall').textContent = '—'; $('raceWalks').textContent = '—'; $('projectedCheckpoints').innerHTML = ''; return;
   }
-  let d = 0, t = 0, walkCount = 0, iterations = 0; const segments = [];
-  while (d < distance - 1e-9 && iterations++ < 1500) {
-    const block = activePreset === 'descending' ? [5, 4, 3, 2, 1][Math.min(walkCount, 4)] : $('runMode').value === 'time' ? seg / rp : seg / 1000;
-    const run = Math.min(block, distance - d);
-    segments.push({ from: d, to: d + run, t0: t, t1: t + run * rp }); d += run; t += run * rp;
-    if (d >= distance - 1e-9) break;
-    if (ws > 0) { const walk = Math.min(ws / wp, distance - d); segments.push({ from: d, to: d + walk, t0: t, t1: t + walk * wp }); d += walk; t += walk * wp; walkCount++; }
-  }
-  if (d < distance - 1e-9) { $('raceProjected').textContent = 'Too many intervals'; $('raceOverall').textContent = '—'; $('raceWalks').textContent = '—'; $('projectedCheckpoints').innerHTML = ''; return; }
-  const finish = t + extra * 60;
-  $('raceProjected').textContent = fmtTime(finish); $('raceOverall').textContent = fmtPace(finish, distance); $('raceWalks').textContent = walkCount;
+  const runKm = $('runMode').value === 'time' ? seg / rp : seg / 1000;
+  const result = strategyAtDistance(distance, rp, wp, runKm, ws);
+  const finish = result.seconds + extra * 60;
+  $('raceProjected').textContent = fmtTime(finish); $('raceOverall').textContent = fmtPace(finish, distance); $('raceWalks').textContent = result.walks;
   const checkpoints = [...new Set([5, 10, 15, 20, 30, 40, distance].filter(km => km <= distance))];
-  $('projectedCheckpoints').innerHTML = checkpoints.map(km => { const s = segments.find(segment => segment.to >= km - 1e-9); const elapsed = s.t0 + (km - s.from) * (s.t1 - s.t0) / (s.to - s.from) + extra * 60 * km / distance; return `<div class="metric-pair"><span>${km === distance ? 'Finish' : km + ' km'}</span><strong>${fmtTime(elapsed)}</strong></div>`; }).join('');
+  $('projectedCheckpoints').innerHTML = checkpoints.map(km => { const elapsed = strategyAtDistance(km, rp, wp, runKm, ws).seconds + extra * 60 * km / distance; return `<div class="metric-pair"><span>${km === distance ? 'Finish' : km + ' km'}</span><strong>${fmtTime(elapsed)}</strong></div>`; }).join('');
 }
 ['runPace', 'walkPace', 'runMode', 'runSegment', 'walkBreak', 'raceExtra', 'raceDistance'].forEach(id => $(id).addEventListener('input', updateProjection));
 document.querySelectorAll('[data-preset]').forEach(button => button.onclick = () => {
-  activePreset = button.dataset.preset; $('runMode').value = activePreset === '300' ? 'time' : 'distance';
-  $('runSegment').value = activePreset === '300' ? 300 : activePreset === 'descending' ? 5000 : activePreset === '500' ? 500 : activePreset === '2000' ? 2000 : 1000;
-  $('walkBreak').value = activePreset === 'continuous' ? 0 : 60;
-  $('runSegment').disabled = $('runMode').disabled = activePreset === 'descending';
+  const preset = button.dataset.preset; $('runMode').value = preset === '300' ? 'time' : 'distance';
+  $('runSegment').value = preset === '300' ? 300 : preset === '500' ? 500 : preset === '2000' ? 2000 : 1000;
+  $('walkBreak').value = preset === 'continuous' ? 0 : 60;
   document.querySelectorAll('[data-preset]').forEach(item => item.classList.toggle('selected', item === button)); updateProjection();
 });
-['runMode', 'runSegment', 'walkBreak'].forEach(id => $(id).addEventListener('input', () => { if (activePreset === 'descending' && id !== 'walkBreak') return; if (activePreset !== 'descending') { activePreset = 'custom'; document.querySelectorAll('[data-preset]').forEach(item => item.classList.remove('selected')); } }));
+['runMode', 'runSegment', 'walkBreak'].forEach(id => $(id).addEventListener('input', () => { document.querySelectorAll('[data-preset]').forEach(item => item.classList.remove('selected')); }));
 
 function renderSettings() {
   $('goalName').value = db.options.goalName || ''; $('goalDate').value = db.options.goalDate || ''; $('weeklyGoal').value = db.options.weeklyGoal;
