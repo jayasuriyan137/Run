@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#111111"><meta name="description" content="StrideCoach AI: your browser-local training journal, running dashboard and run/walk planner."><title>StrideCoach AI · Training Hub</title><style>
+
+:root{--bg:#080f20;--panel:#111d34;--panel2:#17243e;--border:#293955;--text:#eef4ff;--muted:#a2b3cf;--teal:#54edcf;--pink:#ff728e;--amber:#ffbe68;--violet:#b198ff;--blue:#6ebaff;--green:#a9ef77;--shadow:0 22px 80px #0003}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% -15%,#293568 0,transparent 40%),radial-gradient(ellipse at -10% 45%,#12385a66,transparent 35%),var(--bg);color:var(--text);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--teal);outline-offset:2px}a{color:var(--teal)}.app{max-width:1640px;margin:0 auto;display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(165deg,#121e37ed,#10172aed);border-right:1px solid var(--border);padding:25px 15px;display:flex;flex-direction:column;gap:18px}.brand{display:flex;align-items:center;gap:10px;padding:8px 8px 16px;border-bottom:1px solid var(--border)}.mark{height:42px;width:42px;display:grid;place-items:center;font-size:26px;background:linear-gradient(135deg,#50e9c9,#588de4);border-radius:14px;color:#0c1830}.brand b{font-size:18px;letter-spacing:-.8px;line-height:1.1}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px;letter-spacing:1.2px}.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;display:flex;align-items:center;gap:13px;padding:12px;border-radius:12px;text-align:left;font-weight:650;color:#b5c3d9}.nav button .i{font-size:18px;width:24px;text-align:center}.nav button.active{background:linear-gradient(90deg,#274d72,#24446985);color:#f2fbff;box-shadow:inset 3px 0 var(--teal)}.nav button:hover{background:#20324d}.sidebarfoot{margin-top:auto;color:var(--muted);font-size:12px;padding:15px;background:#182941;border:1px solid var(--border);border-radius:15px}.sidebarfoot strong{color:var(--teal)}.main{min-width:0;padding:28px clamp(18px,3.2vw,52px) 60px}.topline{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:28px}.dim{color:var(--muted)}.small{font-size:12px}.micro{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:var(--teal)}h1{font-size:clamp(28px,3vw,42px);line-height:1.15;letter-spacing:-1.5px;margin:5px 0 8px}h2{font-size:19px;letter-spacing:-.35px;margin:0}h3{font-size:15px;letter-spacing:-.2px;margin:0}p{margin:8px 0}.btn{border:1px solid #405471;background:#213450;border-radius:11px;padding:10px 15px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:transform .15s,background .15s}.btn:hover{transform:translateY(-1px);background:#2c4566}.btn.primary{color:#071d25;background:linear-gradient(100deg,#65f0d1,#80d8e5);border:0}.btn.primary:hover{background:#93ffe2}.btn.pink{background:linear-gradient(100deg,#f17293,#a981f9);color:#fff;border:0}.btn.ghost{background:transparent}.btn.danger{border-color:#783b50;color:#ffadc0;background:#48263d}.btn.tiny{padding:6px 10px;font-size:12px}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.between{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.stack{display:grid;gap:15px}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}.col3{grid-column:span 3}.col4{grid-column:span 4}.col5{grid-column:span 5}.col6{grid-column:span 6}.col7{grid-column:span 7}.col8{grid-column:span 8}.col12{grid-column:span 12}.panel{background:linear-gradient(160deg,#15233c,#111c32);border:1px solid var(--border);border-radius:20px;padding:22px;min-width:0;box-shadow:var(--shadow)}.panel.softer{background:#10203a}.hero{min-height:232px;padding:31px;position:relative;overflow:hidden;background:linear-gradient(115deg,#203b65,#3b3769 58%,#332b56)}.hero:after{content:"";position:absolute;right:-90px;top:-80px;width:340px;height:340px;border-radius:50%;border:50px solid #a4ebf018;box-shadow:0 0 0 50px #d19efa10,0 0 0 100px #7fe6f20a;pointer-events:none}.hero h1{font-size:clamp(31px,3.7vw,48px);max-width:610px}.hero p{max-width:650px;color:#cbdcf6}.hero .row{margin-top:25px}.goal{color:var(--teal)}.kpi{background:linear-gradient(150deg,#172741,#15223a);border:1px solid var(--border);border-radius:18px;padding:20px;position:relative;overflow:hidden}.kpi .v{font-size:clamp(24px,2.8vw,35px);font-weight:850;letter-spacing:-1px;font-variant-numeric:tabular-nums;margin:5px 0}.kpi .sub{font-size:12px;color:var(--muted)}.kpi .streak{position:absolute;right:16px;top:17px;font-size:23px}.pill{font-size:11px;font-weight:800;border-radius:99px;padding:4px 9px;background:#234a48;color:#9ff7da;display:inline-flex;align-items:center;gap:4px}.pill.orange{background:#543b2c;color:#ffcb91}.pill.purple{background:#3b365b;color:#d0c3ff}.pill.blue{background:#294568;color:#a4d0ff}.pill.gray{background:#333e56;color:#cbd7e8}.notebox{border:1px solid #3a506e;border-left:3px solid var(--blue);background:#182b47;border-radius:10px;padding:12px 15px;color:#dce8f8;font-size:13px}.notebox.warning{border-left-color:var(--amber)}.section-heading{margin-bottom:17px}.section-heading p{font-size:12px;color:var(--muted);margin:4px 0 0}.chart{width:100%;min-height:184px;display:block}.chart-label{font-size:11px;fill:#8fa6c4}.chart-grid{stroke:#304361;stroke-width:1;stroke-dasharray:3 5}.sport-line{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 0;border-bottom:1px solid #283a54}.sport-line:last-child{border-bottom:0}.avatar{height:43px;width:43px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:#284563;flex-shrink:0}.sport-info{flex:1;min-width:0}.sport-info strong{display:block}.sport-info small{display:block;color:var(--muted);font-size:12px}.right{text-align:right}.empty{padding:27px 15px;border:1px dashed #3c5272;border-radius:14px;text-align:center;color:var(--muted);font-size:13px}.tabs{display:none}.tabs.active{display:block}.inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}label{font-size:12px;color:#bed0e9;font-weight:750}input,select,textarea{background:#0e1a30;border:1px solid #374a65;border-radius:10px;color:var(--text);padding:11px 12px;width:100%;min-width:0}textarea{resize:vertical;min-height:86px}input::placeholder,textarea::placeholder{color:#70849f}input[type=range]{accent-color:var(--teal)}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.chip{border:1px solid #38536b;color:#cfe1f8;border-radius:100px;background:#1d3651;padding:7px 12px;font-size:12px;font-weight:800;cursor:pointer}.chip.selected{border-color:var(--teal);background:#24524f;color:#bcffe9}.splitbar{height:11px;flex:1;background:#263951;border-radius:100px;overflow:hidden}.splitbar>div{height:100%;border-radius:100px;background:linear-gradient(90deg,#58bdff,#54edcf)}.timebig{font-size:clamp(36px,4.8vw,62px);font-weight:850;letter-spacing:-2px;margin:4px 0;line-height:1.15;font-variant-numeric:tabular-nums}.projection{padding:25px;border-radius:18px;background:linear-gradient(110deg,#254a60,#254260 55%,#374064);border:1px solid #42707c}.metric-pair{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #31445f;padding:12px 0;gap:10px}.metric-pair:last-child{border:0}.accent{color:var(--teal)}.pinktxt{color:var(--pink)}.ambertxt{color:var(--amber)}.list-unstyled{list-style:none;padding:0;margin:0}.list-unstyled li{padding:9px 0;border-bottom:1px solid #263953}.list-unstyled li:last-child{border:0}.filter{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.filter select,.filter input{width:auto;min-width:135px}.activity-card{border:1px solid #314765;background:#132642;padding:16px;border-radius:15px;display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:12px}.activity-card:hover{border-color:#65bde6}.activity-card .minirow{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px;color:#b5c9e3;font-size:12px}.stat-tag{font-size:12px;background:#263854;border-radius:8px;padding:5px 8px;color:#c5d8f2}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;font-size:11px;color:#9ab3d2;letter-spacing:.5px;text-transform:uppercase}td,th{padding:12px 9px;border-bottom:1px solid #2c3e56}td:last-child,th:last-child{text-align:right}.dayline{display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:15px;padding:13px;border-bottom:1px solid #2a3d59}.dayline:last-child{border-bottom:0}.dayline .when{font-size:12px;color:var(--muted)}.dayline strong{font-size:14px}.dayline p{font-size:12px;color:var(--muted);margin:2px 0}.plancheck{width:18px;height:18px;accent-color:var(--teal);cursor:pointer}.milestone{border:1px solid #31415c;background:#162741;border-radius:14px;padding:20px}.milestone b{font-size:27px;letter-spacing:-.8px;display:block;margin:5px 0}.milestone em{font-size:12px;color:var(--muted);font-style:normal}.milestone .emoji{font-size:23px}.note-strong{background:#243854;border-radius:12px;padding:16px;border:1px solid #375271}.timeline{border-left:2px solid #375b71;margin:18px 0 0 9px;padding-left:22px}.timeline-entry{position:relative;margin:0 0 18px}.timeline-entry:before{content:"";position:absolute;left:-29px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--teal);border:3px solid var(--bg)}.feedback{padding:15px;border:1px solid #344968;background:#172b45;border-radius:12px;margin-top:11px}.feedback p{white-space:pre-wrap;word-break:break-word}.modal{position:fixed;inset:0;background:#020716cf;display:none;align-items:center;justify-content:center;z-index:100;padding:15px}.modal.open{display:flex}.modal .dialog{background:#13243d;border:1px solid #476380;border-radius:20px;width:min(760px,100%);max-height:94vh;overflow:auto;padding:23px;box-shadow:0 25px 90px #0009}.toast{position:fixed;bottom:20px;right:22px;background:#204f49;border:1px solid #5d9a8b;border-radius:11px;padding:12px 16px;color:#ebfff6;display:none;z-index:200;box-shadow:0 12px 40px #0007}.toast.show{display:block}.hide{display:none!important}.hr{height:1px;background:#314460;margin:16px 0}.side-title{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;font-weight:800;color:#8da6ca;margin:8px 11px 4px}.guide{color:#b6c7de;font-size:12px}.upload-box{padding:15px;border:1px dashed #4d6180;background:#162b45;border-radius:13px}.foot{font-size:12px;color:#8fa6c4;margin-top:28px}.trendIcon{height:32px;width:32px;display:grid;place-items:center;border-radius:9px;background:#2c415f}.banner{background:#263253;border:1px solid #4e5578;padding:14px 18px;border-radius:14px;font-size:13px}
+@media(max-width:1150px){.col3{grid-column:span 6}.col7,.col5{grid-column:span 6}.col8{grid-column:span 12}.app{grid-template-columns:200px minmax(0,1fr)}.sidebar{padding:20px 10px}}
+@media(max-width:800px){.app{display:block}.sidebar{height:auto;position:static;padding:10px 12px;border-bottom:1px solid var(--border)}.brand{padding:4px 8px 9px}.brand b{font-size:16px}.brand .mark{height:33px;width:33px;font-size:20px}.nav{display:flex;overflow-x:auto;gap:5px;scrollbar-width:none}.nav button{white-space:nowrap;font-size:12px;padding:9px 11px}.nav button .i{font-size:15px;width:auto}.side-title,.sidebarfoot{display:none}.main{padding:19px 14px 45px}.topline{margin-bottom:16px}.hero{padding:21px;min-height:215px}.hero:after{right:-235px}.col3,.col4,.col5,.col6,.col7,.col8,.col12{grid-column:span 12}.grid{gap:12px}.panel{padding:18px;border-radius:16px}.kpi{padding:17px}.inputs{grid-template-columns:1fr}.field.full{grid-column:1}.dayline{grid-template-columns:67px 1fr auto;gap:7px}.activity-card{align-items:flex-start}.smallhide{display:none}}
+@media(min-width:550px) and (max-width:800px){.col3{grid-column:span 6}.col6{grid-column:span 6}}
+
+/* v0.6: Apple Fitness-inspired energy, Strava-inspired achievements, Runna-inspired session cards. Original custom styling. */
+:root{--bg:#080a13;--panel:#111525;--panel2:#171c30;--border:#2a3044;--text:#f5f7ff;--muted:#a6adc5;--teal:#60f2d0;--pink:#ff567d;--amber:#f7c34b;--violet:#ab88ff;--blue:#54b5ff;--green:#b2f779;--shadow:0 18px 48px #0005}
+body{background:radial-gradient(ellipse at 100% 0%,#231333 0%,transparent 26%),radial-gradient(ellipse at 10% 46%,#12243a 0%,transparent 42%),var(--bg)}
+.app{max-width:1720px;grid-template-columns:246px minmax(0,1fr)}
+.sidebar{background:#0f1321ef;border-color:#252c42}
+.brand .mark{background:linear-gradient(135deg,#ec4979,#a861f6);color:#fff}
+.nav button.active{background:linear-gradient(90deg,#58315d,#2b254c);box-shadow:inset 3px 0 var(--pink)}
+.nav button:hover{background:#22243d}
+.micro{color:#fa96b3}
+.main{padding-top:34px}
+.panel{background:linear-gradient(135deg,#171d32,#111525 65%);border-color:#2b3047;box-shadow:0 12px 32px #0003}
+.kpi{border-color:#303149;background:#171a2c}
+.kpi .v{font-size:clamp(25px,2.4vw,33px)}
+.btn.primary{background:linear-gradient(100deg,#ff6f9d,#c68aff);color:#160e22}
+.btn.primary:hover{background:linear-gradient(100deg,#ff8caf,#d7afff)}
+.btn:focus-visible,.session-card:focus-visible{outline:3px solid #fafafa;outline-offset:3px}
+.pill{background:#154439;color:#9dfad0}
+.pill.orange{background:#47361e;color:#ffde8d}
+.pill.purple{background:#30224e;color:#cfb4ff}
+.pill.blue{background:#192e4a;color:#9dd2ff}
+.activity-card{background:#1a2238;border-color:#303a55}
+.activity-card:hover{border-color:#d66eab}
+.hero.fitness-hero{min-height:235px;background:radial-gradient(circle at 89% 18%,#fa648822 0,transparent 30%),linear-gradient(105deg,#30224c,#17203d 62%,#193341)}
+.hero.fitness-hero:after{width:230px;height:230px;border:37px solid #ff648618;box-shadow:0 0 0 40px #a272e612,0 0 0 82px #59bdff0a;right:32px;top:12px}
+.hero.fitness-hero h1{font-size:clamp(31px,3.4vw,45px);max-width:590px}
+.hero .goal{color:#ff819d}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.hero-stat{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff2b;background:#ffffff0e;border-radius:100px;padding:5px 11px;color:#e8e8f5;font-weight:700;font-size:11px}
+.overview-tile{position:relative;overflow:hidden}
+.overview-tile::before{content:"";position:absolute;right:-30px;top:-40px;width:130px;height:130px;border:23px solid var(--tint,#ff567d);opacity:.11;border-radius:50%}
+.overview-tile.pinktile{--tint:#ff567d}.overview-tile.greentile{--tint:#c4f656}.overview-tile.purpletile{--tint:#ac8aff}.overview-tile.bluetile{--tint:#5db7ff}
+.overview-tile .streak{font-size:23px}
+.kpi-extra{display:inline-flex;align-items:center;gap:6px;margin-top:7px;font-size:11px;font-weight:700;color:#becadf}
+.section-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.section-topline h2{font-size:20px}
+.rings-panel{background:radial-gradient(ellipse at 25% 25%,#56204433,transparent 56%),#131525}
+.rings-content{display:grid;grid-template-columns:minmax(180px,1fr) minmax(150px,1fr);align-items:center;gap:20px}
+.ring-stack{width:min(250px,100%);aspect-ratio:1;position:relative;display:grid;place-items:center;margin:auto}
+.ring{position:absolute;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ring-color) calc(var(--percent,0) * 1%),#353044 0);box-shadow:0 0 18px #0002}
+.ring::before{content:"";position:absolute;inset:18px;border-radius:50%;background:#151729}
+.ring.big{width:100%;height:100%;--ring-color:#fe5c89}.ring.medium{width:74%;height:74%;--ring-color:#c0ec55}.ring.small{width:48%;height:48%;--ring-color:#54c7fc}
+.ring.small::before{inset:13px}.ring.medium::before{inset:16px}
+.ring-icon{position:relative;z-index:1;font-size:25px;filter:drop-shadow(0 2px 8px #0008)}
+.ring-legend{display:grid;gap:16px}
+.ring-legend-row{display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:start}
+.legend-bullet{height:10px;width:10px;border-radius:99px;margin-top:5px;background:var(--dot)}
+.ring-legend strong{display:block;font-size:14px}
+.ring-legend small{color:var(--muted);display:block;font-size:11px;margin-top:2px}
+.ring-footer{margin-top:18px;border-top:1px solid #34334b;padding-top:11px;color:#a8acc9;font-size:11px}
+.week-panel{background:linear-gradient(120deg,#151c30,#16172b)}
+.week-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.week-head b{font-size:30px;letter-spacing:-1px}
+.week-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;align-items:end;margin:27px 0 19px;height:134px}
+.week-column{height:100%;display:flex;align-items:center;flex-direction:column;justify-content:flex-end;gap:8px;min-width:0}
+.week-column .bar-track{height:95px;width:min(26px,100%);border-radius:14px;background:#30334a;display:flex;align-items:flex-end;overflow:hidden}
+.week-column .bar-fill{width:100%;height:var(--bar-pct);border-radius:14px;background:linear-gradient(180deg,#fc7399,#a56df0);min-height:0;transition:height .25s}
+.week-column .bar-fill.zero{background:#44445d;height:5px}
+.week-column .weekday{font-size:11px;color:#aeb6cf;font-weight:800}
+.week-column .workout-point{font-size:10px;color:#c5cde0;font-weight:700}
+.week-keyline{display:flex;gap:14px;flex-wrap:wrap;padding-top:13px;border-top:1px solid #383a51;font-size:11px;color:#adb7d0}
+.week-keyline strong{font-size:13px;color:#edf1fd}
+.date-ribbon{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fa9eb2;font-weight:850}
+.training-intro{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(220px,.6fr);gap:18px;margin-bottom:20px}
+.training-gradient{background:linear-gradient(120deg,#34214e,#27345b);border:1px solid #54456e;border-radius:20px;padding:25px;min-width:0}
+.training-gradient h2{font-size:25px;margin:6px 0}
+.training-gradient p{color:#c9cae4;font-size:13px;max-width:580px}
+.training-insight{background:#18233c;border:1px solid #334568;border-radius:20px;padding:22px}
+.training-insight strong{display:block;font-size:16px}
+.session-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;align-items:stretch;padding:14px 0 34px}
+.plan-item{min-width:0;position:relative;z-index:1}
+.plan-item:has(.session-card:hover),.plan-item:has(.session-card:focus-visible),.plan-item:has(.session-card:focus){z-index:15}
+.session-card{width:100%;height:236px;text-align:left;border:1px solid #353a55;border-radius:15px;background:linear-gradient(155deg,#26213b,#151a2b);color:#f4f4ff;padding:14px 12px;display:flex;flex-direction:column;gap:7px;position:relative;cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+.session-card:hover,.session-card:focus-visible{transform:translateY(-5px);border-color:#ff87ac;box-shadow:0 16px 34px #0009}
+.session-card.easy{background:linear-gradient(150deg,#193f49,#142334);border-color:#386c70}
+.session-card.strength{background:linear-gradient(150deg,#493a2c,#22202d);border-color:#64513c}
+.session-card.sport{background:linear-gradient(150deg,#493046,#242139);border-color:#694566}
+.session-card.rest{background:linear-gradient(150deg,#27253e,#1a1b2b);border-color:#3c3957}
+.session-day{font-size:11px;letter-spacing:.12em;color:#c2c6dc;font-weight:800;text-transform:uppercase}
+.session-date{font-size:21px;font-weight:850;letter-spacing:-1px}
+.session-emoji{font-size:26px;line-height:1.25;margin:6px 0 1px}
+.session-title{font-size:13px;font-weight:850;line-height:1.25;min-height:34px}
+.session-minor{font-size:11px;color:#b6bfd5;line-height:1.4}
+.session-tag{align-self:flex-start;margin-top:auto;border-radius:99px;font-size:10px;font-weight:850;padding:4px 8px;color:#c5ffee;background:#2f5a55}
+.session-card.rest .session-tag{background:#34314e;color:#c4baf4}
+.session-card.strength .session-tag{background:#594027;color:#ffdbb0}
+.session-card.sport .session-tag{background:#51324e;color:#ffd1e6}
+.session-hover{display:none;position:absolute;top:calc(100% - 15px);left:4px;z-index:50;width:325px;max-width:calc(100vw - 40px);border-radius:16px;padding:17px;background:#242740;border:1px solid #806aab;box-shadow:0 20px 54px #000b;pointer-events:none;color:#ecedfc;text-align:left}
+.session-hover strong{display:block;font-size:15px;margin-bottom:10px;color:#fff}
+.session-hover .popover-line{display:grid;grid-template-columns:75px 1fr;gap:8px;padding:5px 0;border-bottom:1px solid #383b57;font-size:11px}
+.session-hover .popover-line span:first-child{color:#b7bdd5}
+.session-hover .popover-line span:last-child{font-weight:750}
+.session-hover p{font-size:11px;color:#bfc5df;line-height:1.55;margin:10px 0 0}
+.plan-item:nth-child(n+5) .session-hover{left:auto;right:4px}
+@media (hover:hover){.session-card:hover .session-hover,.session-card:focus-visible .session-hover{display:block}}
+.plan-tick{padding:9px 2px 0;display:flex;align-items:center;gap:6px;font-size:11px;color:#b9c7dd}
+.plan-tick input{width:17px;height:17px;flex:none}
+.plan-tip{margin:4px 0 0;font-size:12px;color:#aab7d4}
+.strava-gradient{background:radial-gradient(circle at 92% 10%,#f9733a29,transparent 35%),linear-gradient(120deg,#29233a,#1a1b2c)!important;border-color:#664443!important}
+.strava-gradient .micro{color:#ffb67f}
+.prediction-slider{accent-color:#fc7844;width:100%;padding:0;border:0;background:transparent}
+.prediction-result{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:16px;flex-wrap:wrap}
+.prediction-result .large{font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}
+.prediction-box{padding:20px;border-radius:17px;background:#251e31;border:1px solid #5a3b40}
+.strava-record{background:linear-gradient(125deg,#462b28,#242033);border:1px solid #6c4b42;border-radius:17px;padding:19px}
+.strava-record strong{font-size:26px;letter-spacing:-1px}
+.milestone{background:linear-gradient(135deg,#24253b,#17192b);border-color:#303d58;min-height:166px}
+.milestone:hover{border-color:#fe8b5c;transform:translateY(-2px);transition:.18s}
+.milestone .emoji{color:#ff995d}
+.info-strip{border:1px solid #3d334f;border-radius:12px;background:#251d37;padding:12px 15px;font-size:12px;color:#c7c7e1}
+@media(max-width:1370px){.session-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.plan-item:nth-child(4) .session-hover{left:auto;right:4px}}
+@media(max-width:900px){.rings-content{grid-template-columns:1fr 1fr}.training-intro{grid-template-columns:1fr}.session-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.session-card{height:206px}.plan-item:nth-child(even) .session-hover{left:auto;right:4px}}
+@media(max-width:600px){.rings-content{grid-template-columns:1fr}.ring-stack{max-width:205px}.ring-legend{grid-template-columns:1fr 1fr}.session-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.session-hover{display:none!important}.week-bars{gap:5px}.session-card{padding:12px 10px}.hero.fitness-hero{min-height:270px}.hero.fitness-hero::after{display:none}}
+
+/* v0.9 mobile-first enhancements: compact responsive overview and reachable thumb navigation */
+.week-switch{display:flex;align-items:end;gap:10px;justify-content:space-between;margin:16px 0}.week-picker{flex:1;max-width:360px}.week-picker select{margin-top:5px;min-height:45px}.week-switch .btn{min-height:46px}.week-switch .btn:disabled{opacity:.4;cursor:not-allowed}.week-summary{display:flex;justify-content:space-between;gap:15px;align-items:center;background:linear-gradient(100deg,#202c4c,#241a39);border:1px solid #464565;border-radius:17px;padding:16px 20px}.week-summary h2{font-size:22px;margin:5px 0}.week-summary p{margin:4px 0}.week-km{text-align:right;min-width:132px}.week-km strong{display:block;color:#aef2d7;font-size:17px}.week-km span{color:#c4c5d8;font-size:11px}.session-card.long{background:linear-gradient(155deg,#244256,#15263f);border-color:#466b8a}.session-card.quality{background:linear-gradient(155deg,#49345c,#1b1f38);border-color:#68558b}.session-card.race{background:linear-gradient(155deg,#685037,#392443);border-color:#a07440}.mobile-bottom-nav,.mobile-more-menu,.mobile-more-backdrop{display:none}
+@media(max-width:740px){
+ html,body{max-width:100%;overflow-x:hidden}
+ body{font-size:14px;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+ .sidebar{position:sticky;top:0;z-index:40;height:auto;padding:9px 14px;background:#0c1120f6;backdrop-filter:blur(16px);border-bottom:1px solid #34364c}
+ .sidebar .nav,.sidebarfoot,.side-title{display:none!important}
+ .brand{border:0;padding:3px}.brand small{font-size:9px}.brand b{font-size:17px}
+ .main{padding:15px 12px 32px}.topline{margin-bottom:16px}.topline .row{width:100%;justify-content:space-between}.topline .btn{min-height:42px}
+ h1{font-size:31px;letter-spacing:-1px}.section-heading h1{font-size:28px}
+ .hero.fitness-hero{min-height:225px;padding:20px}.hero.fitness-hero h1{font-size:29px}.hero p{font-size:13px}.hero .row{margin-top:15px}
+ .grid{gap:10px}.panel{padding:15px;border-radius:16px}.kpi{padding:14px}
+ .col3,.col4,.col5,.col6,.col7,.col8,.col12{grid-column:span 12}
+ #tab-overview .grid>.overview-tile.col3{grid-column:span 6}
+ .kpi .v{font-size:26px}.kpi .streak{font-size:19px;right:8px;top:9px}.kpi .sub{font-size:11px}
+ .week-summary{align-items:flex-start;padding:14px;flex-direction:column}.week-km{text-align:left;min-width:0}
+ .week-switch{gap:7px}.week-switch .btn{padding:9px;font-size:12px}.week-picker{min-width:0}.week-picker select{font-size:12px;padding:9px 7px}
+ .session-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px 0 20px}
+ .session-card{min-height:177px;height:auto;padding:11px 10px;gap:5px;touch-action:manipulation;transform:none!important}
+ .session-date{font-size:16px}.session-emoji{font-size:22px;margin:2px 0}.session-title{min-height:0;font-size:13px}.session-minor{font-size:11px}.session-tag{font-size:10px}
+ .session-hover{display:none!important}.plan-tick{padding:7px 2px;min-height:37px}
+ .training-intro{gap:9px}.training-gradient{padding:15px;border-radius:15px}.training-gradient h2{font-size:19px}.training-gradient p{font-size:12px;margin:6px 0}.training-gradient .row{margin-top:9px!important}.training-insight{display:none}body:has(#tab-training.active) .topline{display:none}
+ .activity-card{flex-direction:column;align-items:flex-start}.activity-card .right{text-align:left}.inputs{grid-template-columns:1fr}
+ .mobile-bottom-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;z-index:70;bottom:0;left:0;right:0;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));background:#111729f8;border-top:1px solid #343d57;box-shadow:0 -9px 32px #0007;backdrop-filter:blur(14px);gap:3px}
+ .mobile-bottom-nav button{min-width:0;background:transparent;border:0;border-radius:12px;color:#aebad5;min-height:53px;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 1px}
+ .mobile-bottom-nav button span{font-size:22px;line-height:1.3}.mobile-bottom-nav button.active{color:#ff98b8;background:#3e2a48}
+ .mobile-more-backdrop:not([hidden]){display:block;position:fixed;inset:0;background:#0009;z-index:76}
+ .mobile-more-menu:not([hidden]){display:grid;position:fixed;z-index:77;left:12px;right:12px;bottom:calc(83px + env(safe-area-inset-bottom,0px));padding:16px;gap:8px;border:1px solid #555a7c;border-radius:21px;background:#1c2137;box-shadow:0 24px 80px #000b}
+ .mobile-more-menu>button,.mobile-more-menu>a[data-tab]{padding:14px 12px;min-height:46px;text-align:left;border:1px solid #39415f;background:#29314b;color:#f0f3ff;border-radius:12px;font-size:14px;text-decoration:none}
+ .modal{padding:0;align-items:flex-end}.modal .dialog{width:100%;max-height:89dvh;border-radius:23px 23px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+ .modal .metric-pair{align-items:flex-start}.modal .metric-pair strong{text-align:right;max-width:65%}
+ .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px));left:12px;right:12px}
+ .tablewrap{max-width:100%;overflow:auto} .sport-line{gap:8px}
+}
+@media(min-width:741px) and (max-width:1020px){.sidebar{width:auto}.session-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* v0.9 enhanced history, gear, HR-zone focus and large finger-friendly controls */
+.month-chart{display:flex;gap:8px;align-items:stretch;height:210px;padding:7px 3px 0;border-bottom:1px solid #394663}
+.month{flex:1;display:flex;align-items:center;flex-direction:column;justify-content:flex-end;gap:7px;min-width:0}
+.month-value{font-size:11px;font-weight:750;color:#d7ddf9}
+.month-rail{width:min(100%,43px);height:145px;display:flex;flex-direction:column;justify-content:flex-end;border-radius:9px;background:#202d49;overflow:hidden}
+.month-fill{width:100%;height:var(--pct);background:linear-gradient(0deg,#54e5c9,#6ea5ff);border-radius:7px 7px 0 0}
+.month-label{font-size:11px;color:#b4c2dc}
+.shoe-usage{margin:14px 0 17px}.shoe-name{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px}.shoe-name b{font-weight:800}.shoe-meter{height:7px;background:#2b3650;margin:7px 0 3px;border-radius:99px;overflow:hidden}.shoe-fill{height:100%;border-radius:99px;background:var(--shoe-color)}.shoe-note{font-size:11px;color:#b5c3da}
+.race-tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.race-tile{border:1px solid #424b65;background:linear-gradient(140deg,#1d2b49,#231f3c);padding:15px;border-radius:15px;min-width:0}.race-tile strong{display:block;font-size:22px;letter-spacing:-.7px}.race-tile h3{font-size:12px;margin:7px 0 3px;min-height:34px}.race-tile small{font-size:11px;color:#aebfda}
+.hr-settings{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:14px 0}.hr-settings input{max-width:230px}.hr-settings label{display:block;margin-bottom:7px}.hr-bubble{background:#20403e;color:#88ffdb;border-radius:9px;padding:7px 10px;font-size:12px;font-weight:700;display:inline-block;margin:4px 0}
+@media(max-width:1150px){.race-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:740px){.hero.fitness-hero{padding:18px;min-height:0}.hero.fitness-hero h1{font-size:25px}.hero.fitness-hero p{font-size:12px;line-height:1.35}.hero.fitness-hero .row{gap:6px;margin-top:12px}.hero.fitness-hero .row button{padding:9px;font-size:11px}.hero-badges{gap:5px}.hero-stat{font-size:10px}.race-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.race-tile{padding:12px}.race-tile strong{font-size:20px}.hr-settings{grid-template-columns:1fr;gap:12px}.month-chart{gap:3px;height:172px}.month-rail{height:108px}.month-value,.month-label{font-size:9px}.shoe-name{font-size:12px}.hr-settings input{min-height:46px;width:100%;max-width:none}#saveZones{min-height:46px}.kpi .v{font-size:25px}}
+
+/* v0.9 FITNESS EDITION • cleaner Apple Fitness-inspired language, never a brand reproduction */
+:root{--bg:#050507;--panel:#1c1c1e;--panel2:#222225;--border:#303033;--text:#f5f5f7;--muted:#a7a7ae;--teal:#b8fb36;--pink:#ff375f;--amber:#ff9f0a;--violet:#bf5af2;--blue:#35c8f4;--green:#b8fb36;--shadow:none}
+body{background:#050507;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',Arial,sans-serif}
+.sidebar{background:#101012;border-right-color:#2a2a2c}
+.brand{border-color:#29292d}.brand small{letter-spacing:.75px;color:#98989e}.mark{background:#ff375f;color:#fff;border-radius:12px;box-shadow:none}
+.nav button{color:#b8b8be}.nav button:hover{background:#252527}.nav button.active{background:#28282c;box-shadow:inset 3px 0 #ff375f;color:#fff}
+.sidebarfoot{background:#1c1c1e;border-color:#303034}.sidebarfoot strong,.micro{color:#ff5678}
+.main{background:#050507}.panel{background:#1c1c1e;border-color:#323235;border-radius:21px;box-shadow:none}.panel.softer,.week-panel{background:#1c1c1e}
+.hero.fitness-hero,.hero{background:#1c1c1e!important;border-color:#343436!important;min-height:216px}
+.hero::after{width:275px;height:275px;right:-90px;top:-105px;border:40px solid #ff375f17;box-shadow:0 0 0 43px #b8fb3612,0 0 0 86px #35c8f40b}
+.hero .goal{color:#ff375f}.hero p{color:#b8b8be}.hero-stat{background:#2b2b2e!important;border:1px solid #404044!important;color:#d6d6da!important}
+.btn{background:#2a2a2e;border:1px solid #414145;color:#f7f7fa;border-radius:11px}.btn:hover{background:#343439}.btn.primary{background:#ff375f;color:#fff}.btn.primary:hover{background:#ff5c7d}.btn.pink{background:#ff375f;color:#fff}.btn.ghost{background:#252529}
+.kpi{background:#1c1c1e;border-color:#303034}.kpi .v{color:#f4f4f8}.kpi .sub{color:#9c9ca5}
+.pinktile,.greentile,.bluetile,.orangetile{background:#1c1c1e!important}
+.pinktile{border-top:3px solid #ff375f!important}.greentile{border-top:3px solid #b8fb36!important}.bluetile{border-top:3px solid #35c8f4!important}.orangetile{border-top:3px solid #ff9f0a!important}
+.pill{background:#27331a;color:#c6fe72}.pill.orange{background:#382914;color:#ffbc58}.pill.purple{background:#34203d;color:#e6a7ff}.pill.blue{background:#1c333d;color:#7cddff}.pill.gray{background:#313134;color:#d4d4d8}
+.notebox,.feedback{background:#232326;border-color:#3b3b3f;color:#dddde1}.notebox.warning{border-left-color:#ff9f0a}
+input,select,textarea{background:#272729;border:1px solid #434347;color:#f5f5f7;border-radius:12px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:#35c8f4}
+.chip{background:#29292c;border-color:#434347;color:#eee}.chip.selected{border-color:#ff375f;background:#43232e;color:#ffadc2}
+.metric-pair,.sport-line,.list-unstyled li{border-bottom-color:#333337}.activity-card,.milestone{background:#232325;border-color:#38383b}.activity-card:hover{border-color:#ff375f}.avatar{background:#313135}
+.month-rail{background:#303034}.month-fill{background:linear-gradient(180deg,#ff587d,#ff375f)!important}
+.shoe-meter{background:#313134}.shoe-note,.guide{color:#a7a7af}.shoe-usage{border-bottom-color:#38383a}
+.ring{background:conic-gradient(var(--ring-color) calc(var(--percent,0) * 1%),#3a3a3e 0)}
+.ring::before{background:#1c1c1e}.ring.big{--ring-color:#ff375f}.ring.medium{--ring-color:#b8fb36}.ring.small{--ring-color:#35c8f4}
+.ring-footer{border-color:#3a3a3d}.week-panel{background:#1c1c1e!important}.week-column .bar-track{background:#303033}.week-column .bar-fill{background:linear-gradient(180deg,#ff5e80,#ff375f)}
+.training-gradient,.training-insight{background:#222225;border-color:#3a3a3d}.training-gradient p{color:#bcbcc3}.training-gradient .date-ribbon{color:#ff5f80}
+.session-card{background:#29292b!important;border-color:#3a3a3e!important}.session-card.easy{border-top:4px solid #b8fb36!important}.session-card.quality{border-top:4px solid #bf5af2!important}.session-card.long{border-top:4px solid #35c8f4!important}.session-card.strength{border-top:4px solid #ff9f0a!important}.session-card.race{border-top:4px solid #ff375f!important}.session-card.rest{border-top:4px solid #666670!important}
+.session-card:hover,.session-card:focus-visible{border-color:#ff6582!important;box-shadow:0 14px 32px #0006}
+.session-hover{background:#2c2c30;border-color:#66666e;color:#fff}.session-hover .popover-line{border-color:#414145}.session-hover p,.session-hover .popover-line span:first-child{color:#bcbcc4}
+.week-summary,.info-strip{background:#232326!important;border-color:#343438!important}.week-km strong{color:#b8fb36}
+.projection{background:#262628;border-color:#414145}.timebig{color:#fff}.strava-gradient{background:#232325!important;border-color:#424246!important}.strava-gradient .micro{color:#ff9f0a}
+.chart-grid{stroke:#343437}.chart-label{fill:#a9a9b1}
+.race-tile{position:relative;background:#252527!important;border:1px solid #38383c!important;border-top:4px solid var(--race-accent,#8e8e93)!important;transition:transform .2s,border-color .2s}
+.race-tile:hover{transform:translateY(-3px);border-color:var(--race-accent)!important}.race-tile[data-race='5k']{--race-accent:#ff9f0a}.race-tile[data-race='10k']{--race-accent:#30d158}.race-tile[data-race='hm']{--race-accent:#ff375f}
+.race-tile .race-category{color:var(--race-accent);font-size:11px;font-weight:800;letter-spacing:.65px;text-transform:uppercase}.race-tile h3{min-height:32px}.race-tile small{color:#b6b6bd}
+.goal-duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}.goal-card{border:1px solid #424246;border-radius:17px;background:#252527;padding:21px;display:grid;gap:8px}.goal-card.jan-goal{border-top:4px solid #ff375f}.goal-card.april-goal{border-top:4px solid #b8fb36}.goal-card .eyebrow{font-size:10px;font-weight:850;letter-spacing:.9px;color:#aeb0ba}.goal-card strong{font-size:clamp(27px,3vw,38px);font-weight:860;letter-spacing:-1.1px}.goal-card.jan-goal strong{color:#ff6f89}.goal-card.april-goal strong{color:#c6fd67}.goal-card strong span{font-size:15px;color:#dadade}.goal-card div:not(.eyebrow){color:#dddde1;font-size:13px}.goal-card small{color:#a8a8af;font-size:12px}
+.phase-roadmap{margin:18px 0}.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.phase-card{background:#28282b;border:1px solid #424247;border-radius:16px;padding:18px}.phase-card.active-phase{border-top:4px solid #ff375f}.phase-card:not(.active-phase){border-top:4px solid #b8fb36}.phase-bullet{font-size:12px;font-weight:800;color:#b0b0b7}.phase-card h3{font-size:16px;margin:9px 0}.phase-card p{color:#dedee2;font-size:13px}.phase-card small{color:#a9a9b1}
+.experiment-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.experiment-card{border:1px solid #424248;border-top:3px solid var(--experiment,#ff375f);border-radius:16px;padding:17px;background:#252528}.experiment-card .tag{font-size:10px;font-weight:800;color:var(--experiment,#ff375f);text-transform:uppercase}.experiment-card strong{font-size:20px;display:block;margin:9px 0}.experiment-card p{font-size:12px;color:#ccccd2}.experiment-card small{font-size:11px;color:#a8a8ad}
+.mobile-bottom-nav{background:#1c1c1ef8!important;border-top-color:#36363a!important}.mobile-bottom-nav button{color:#c0c0c6!important;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.mobile-bottom-nav button.active{background:#41232d!important;color:#ff6d89!important}.mobile-bottom-nav button span{pointer-events:none}.mobile-more-menu:not([hidden]){background:#242426!important;border-color:#444448!important}.mobile-more-menu>button{background:#313135!important;border-color:#46464b!important;color:#fff!important}
+.modal{background:#000c}.modal .dialog{background:#252528;border-color:#4b4b50}
+@media(max-width:740px){.sidebar{background:#171719f8!important;border-bottom-color:#333337!important}.app{display:block}.main{padding-bottom:30px}.hero.fitness-hero{padding:18px}.hero.fitness-hero h1{font-size:28px}.hero::after{opacity:.65;right:-190px}.goal-duo{grid-template-columns:1fr}.goal-card{padding:16px}.phase-grid{grid-template-columns:1fr}.experiment-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.phase-roadmap{margin:12px 0}.mobile-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.race-tile{min-height:156px}.race-tile strong{font-size:21px}}
+@media(max-width:355px){.experiment-grid{grid-template-columns:1fr}.mobile-bottom-nav button{font-size:9px}.race-tiles{grid-template-columns:1fr 1fr}}
+
+
+/* Finish: remove synth-esque circular KPI decoration, allow density on small screens */
+.kpi::after,.kpi::before{background:none!important;box-shadow:none!important;opacity:0!important}
+.hero.fitness-hero h1{max-width:700px}
+@media(max-width:740px){.topline .row{justify-content:flex-end}.hero.fitness-hero h1{max-width:330px}.main{padding-top:17px}}
+
+.session-card,.mobile-bottom-nav button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.session-card{-webkit-user-select:none;user-select:none}
+
+/* v1.0 mobile navigation hardening: native links + no-JavaScript fallback. */
+nav.nav a[data-tab]{border:0;background:transparent;display:flex;align-items:center;gap:13px;padding:12px;border-radius:12px;text-align:left;font-weight:650;color:#b5c3d9;text-decoration:none}
+nav.nav a[data-tab] .i{font-size:18px;width:24px;text-align:center}
+nav.nav a[data-tab].active{background:#302735;color:#fff;box-shadow:inset 3px 0 #ff375f}
+nav.nav a[data-tab]:hover{background:#20324d}
+.mobile-fallback-more{display:none}
+.no-script-alert{padding:17px;border:2px solid #ff9f0a;background:#2a2418;color:#fff;border-radius:16px;margin:0 0 16px;font-size:14px}
+.tabs{scroll-margin-top:70px}
+/* Native anchors switch displayed sections even where click-handler JavaScript is restricted. */
+.no-js body:has(.tabs:target) .tabs{display:none!important}
+.no-js body:has(.tabs:target) .tabs:target{display:block!important}
+@media(max-width:740px){
+ .mobile-bottom-nav a[data-tab],.mobile-bottom-nav .mobile-fallback-more>summary{min-width:0;background:transparent;border:0;border-radius:12px;color:#aebad5;min-height:56px;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 1px;text-decoration:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+ .mobile-bottom-nav a[data-tab] span,.mobile-fallback-more>summary span{font-size:22px;line-height:1.3}
+ .mobile-bottom-nav a[data-tab].active{color:#ff98b8;background:#3e2a48}
+ .mobile-bottom-nav button,.mobile-bottom-nav a[data-tab]{touch-action:manipulation}
+ .no-js #mobileMoreButton{display:none}
+ .no-js .mobile-fallback-more{display:block;position:relative;min-width:0}
+ .no-js .mobile-bottom-nav a[data-tab]:target{color:#ff98b8;background:#3e2a48}
+ .mobile-fallback-more>summary{list-style:none;cursor:pointer}
+ .mobile-fallback-more>summary::-webkit-details-marker{display:none}
+ .mobile-fallback-more-items{position:absolute;bottom:68px;right:-4px;z-index:150;width:min(285px,85vw);padding:12px;border:1px solid #515151;background:#222;border-radius:16px;box-shadow:0 12px 40px #0009}
+ .mobile-fallback-more-items a{display:block;padding:12px;color:white;font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid #383838}
+ .mobile-fallback-more-items a:last-child{border-bottom:0}
+ body:has(.tabs:target) .tabs:target{scroll-margin-top:70px}
+}
+
+
+
+/* v1.2 athlete evidence cards and mobile first */
+.football-spotlight{border-color:#39443d;background:#191e1c}.football-spotlight .micro{color:#b8fa4e}.spotlight-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:16px}.spotlight-stats>div{background:#24292a;border:1px solid #3b4141;padding:12px 10px;border-radius:13px;min-width:0}.spotlight-stats b{display:block;color:#f7f7f8;font-size:clamp(15px,2vw,22px);font-variant-numeric:tabular-nums}.spotlight-stats small{display:block;color:#a8a8aa;font-size:11px}.zone-row{display:grid;grid-template-columns:30px minmax(75px,1fr) 50px 85px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #333}.zone-row>span{font-size:12px}.zone-row small{font-size:11px;color:#aaa;text-align:right}.zone-track{height:12px;background:#353535;border-radius:99px;overflow:hidden}
+@media(max-width:780px){.spotlight-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.football-spotlight{padding:15px}.football-spotlight .between{align-items:flex-start}.zone-row{grid-template-columns:26px minmax(55px,1fr) 45px 72px;gap:5px}.zone-row small{font-size:10px}}
+@media(max-width:375px){.spotlight-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Public journal: preserve the original dashboard design with neutral empty states. */
+.tabs[hidden]{display:none!important}.ring-legend strong,.ring-legend small{display:block}.month-chart{min-height:190px}.session-card{height:210px}.session-grid{overflow-x:auto}.session-card .session-title{overflow-wrap:anywhere}.modal.open{overscroll-behavior:contain}.empty{overflow-wrap:anywhere}
+@media(max-width:740px){.session-grid{grid-template-columns:repeat(7,minmax(145px,1fr))}.main{padding-bottom:110px!important}.mobile-more-menu button{width:100%;margin-top:8px}.activity-card{flex-wrap:wrap}.topline{gap:10px}.month-chart{gap:6px!important}}
+
+</style></head><body>
+<div class="app">
+<aside class="sidebar">
+<div class="brand"><div class="mark">↗</div><div><b>StrideCoach <span style="color:var(--teal)">AI</span></b><small>YOUR TRAINING HUB</small></div></div>
+<div class="side-title">YOUR TRAINING</div>
+<nav aria-label="Primary tabs" class="nav">
+<a class="active" data-tab="overview" href="#tab-overview"><span class="i">◈</span> Overview</a>
+<a data-tab="activities" href="#tab-activities"><span class="i">◉</span> Activities</a>
+<a data-tab="strategy" href="#tab-strategy"><span class="i">↔</span> Run / walk</a>
+<a data-tab="training" href="#tab-training"><span class="i">▦</span> Training plan</a>
+<a data-tab="nutrition" href="#tab-nutrition"><span class="i">◕</span> Diet &amp; fuel</a>
+<a data-tab="milestones" href="#tab-milestones"><span class="i">✦</span> Milestones</a>
+<a data-tab="coach" href="#tab-coach"><span class="i">✧</span> Coach's desk</a>
+<a data-tab="settings" href="#tab-settings"><span class="i">⚙</span> Data &amp; privacy</a>
+</nav>
+<div class="sidebarfoot"><div class="micro">YOUR NEXT CHAPTER</div><strong>Your running, in rhythm.</strong><div>Build your own training journal.</div><div style="margin-top:10px">💾 Your entries stay in this browser.</div></div>
+</aside>
+<main class="main">
+<noscript><div class="no-script-alert">Enable JavaScript to use the journal, calculators and browser storage.</div></noscript>
+<header class="topline"><div><div class="micro">YOUR ACTIVITY SUMMARY</div><div class="dim small">Run smarter · Recover stronger · Build consistency</div></div><span class="pill gray" id="databaseCount">0 activities</span></header>
+<section class="tabs active" id="tab-overview">
+<div class="grid">
+<div class="panel hero fitness-hero col12"><div class="micro">STRIDECOACH AI · ACTIVITY &amp; TRAINING</div><h1>Your fitness. Your progress.<br><span class="goal">Find your next stride.</span></h1><p>Your own space for workouts, training plans, race scenarios and coaching notes. Start fresh, or restore a backup on your device.</p><div class="hero-badges"><span class="hero-stat">💾 Browser-local journal</span><span class="hero-stat">✦ No account needed</span></div><div class="row"><button class="btn primary" data-goto="activities">Log your first activity →</button><button class="btn" data-goto="settings">Restore a backup</button></div></div>
+<div class="kpi overview-tile pinktile col3"><span class="streak">🏃</span><div class="small dim">Total running distance</div><div class="v" id="stat-distance">0.0 km</div><div class="sub">From your saved activities</div></div>
+<div class="kpi overview-tile greentile col3"><span class="streak">✦</span><div class="small dim">Activities logged</div><div class="v" id="stat-count">0</div><div class="sub">Every sport, in one place</div></div>
+<div class="kpi overview-tile bluetile col3"><span class="streak">⏱</span><div class="small dim">Time on your feet</div><div class="v" id="stat-duration">0 min</div><div class="sub">Total recorded workout time</div></div>
+<div class="kpi overview-tile purpletile col3"><span class="streak">↗</span><div class="small dim">Longest logged run</div><div class="v" id="stat-longest">—</div><div class="sub">Your distance milestone</div></div>
+<div class="panel rings-panel col5"><div class="section-topline"><div><h2>Your activity rings</h2><p class="small dim">Last 7 days · your logged data</p></div><span class="pill purple">Your rhythm</span></div><div class="rings-content"><div class="ring-stack" role="img" aria-label="Progress in running distance, activities, and plan check-ins"><div class="ring big" id="ringDistance" style="--percent:0"></div><div class="ring medium" id="ringSessions" style="--percent:0"></div><div class="ring small" id="ringChecks" style="--percent:0"><span class="ring-icon">↗</span></div></div><div class="ring-legend"><div><strong id="ringDistanceText">0 km</strong><small class="dim">Running distance</small></div><div><strong id="ringSessionsText">0 sessions</strong><small class="dim">Activities logged</small></div><div><strong id="ringChecksText">0 check-ins</strong><small class="dim">Planned days checked</small></div></div></div><div class="ring-footer">Display references: your weekly km setting, 3 activities and 7 check-ins. These are journal summaries, not physiological measurements or training prescriptions.</div></div>
+<div class="panel week-panel col7"><div class="week-head"><div><div class="micro">YOUR ACTIVITY AT A GLANCE</div><h2>Move with purpose</h2><p class="small dim" id="weekRangeText"></p></div><div class="right"><b id="weekSportMinutes">0 min</b><div class="small dim">logged sport minutes</div></div></div><div class="chips"><button class="chip selected" data-range="rolling">Last 7 days</button><button class="chip" data-range="week">Calendar week</button></div><div class="week-bars" id="weekBars"></div><div class="week-keyline"><span>Run volume <strong id="weekKmMetric">0 km</strong></span><span>Sessions <strong id="weekSessionsMetric">0</strong></span><span>Check-ins <strong id="weekChecksMetric">0</strong></span></div></div>
+<div class="panel col8"><div class="between section-heading"><h2>Running through the year</h2><span class="pill blue" id="chartYear"></span></div><div id="monthlyChart" class="month-chart"></div><p class="guide">Recorded running distance only. Missing months are shown as zero.</p></div>
+<div class="panel col4"><h2>Your next goal</h2><div id="goalSummary" class="stack" style="margin-top:18px"></div><button class="btn tiny" data-goto="settings" style="margin-top:16px">Set your goal →</button></div>
+<div class="panel col7"><div class="between section-heading"><h2>Recent activities</h2><button class="btn tiny" data-goto="activities">All activities →</button></div><div id="recentActivities"></div></div>
+<div class="panel col5"><h2>A journal that grows with you</h2><ul class="list-unstyled"><li>◉ Record your runs and other sports</li><li>▦ Make a weekly plan that fits your life</li><li>↔ Explore run / walk scenarios</li><li>✧ Keep dated coaching feedback</li><li>↓ Export a backup whenever you need one</li></ul><p class="guide">New visitors start with an empty journal. There is no personal history embedded in this public page.</p></div>
+</div></section>
+<section class="tabs" id="tab-activities" hidden><div class="between section-heading"><div><div class="micro">YOUR PERFORMANCE LIBRARY</div><h1>All activities</h1><p>Keep your workouts, recorded metrics, splits and coaching notes together.</p></div><button class="btn primary" data-action="new">＋ Add activity</button></div><div class="panel" style="margin-bottom:18px"><div class="between"><div class="filter"><label for="sportFilter">Sport</label><select id="sportFilter"><option value="all">All activities</option><option value="run">Running</option><option value="football">Football</option><option value="other">Other sports</option></select><select aria-label="Evidence filter" id="verifiedFilter"><option value="all">All evidence levels</option><option value="confirmed">Confirmed only</option><option value="reported">Reported / estimated</option></select></div><span class="small dim" id="activityResultCount"></span></div></div><div id="activityList"></div></section>
+<section class="tabs" id="tab-strategy" hidden><div class="section-heading"><div class="micro">RACE LAB</div><h1>Run / walk strategy</h1><p>Explore the arithmetic of different run and walk patterns. These scenarios do not predict your fitness or race result.</p></div><div class="grid"><div class="panel col5"><h2>Design your strategy</h2><div class="chips"><button class="chip" data-preset="500">500 m / 60 s</button><button class="chip selected" data-preset="1000">1 km / 60 s</button><button class="chip" data-preset="2000">2 km / 60 s</button><button class="chip" data-preset="descending">5 → 4 → 3 → 2 → 1 km</button><button class="chip" data-preset="300">5 min / 60 s</button><button class="chip" data-preset="continuous">Continuous</button></div><div class="inputs"><div class="field"><label for="runPace">Run pace (mm:ss/km)</label><input id="runPace" value="6:40"></div><div class="field"><label for="walkPace">Walk pace (mm:ss/km)</label><input id="walkPace" value="12:00"></div><div class="field"><label for="runMode">Run interval mode</label><select id="runMode"><option value="distance">Distance (metres)</option><option value="time">Time (seconds)</option></select></div><div class="field"><label for="runSegment">Run interval</label><input id="runSegment" type="number" min="1" value="1000"></div><div class="field"><label for="walkBreak">Walk duration (seconds)</label><input id="walkBreak" type="number" min="0" max="1000" value="60"></div><div class="field"><label for="raceExtra">Extra stopped time (minutes)</label><input id="raceExtra" type="number" min="0" max="120" step="0.5" value="0"></div><div class="field full"><label for="raceDistance">Goal distance</label><select id="raceDistance"><option value="21.0975">Half marathon · 21.0975 km</option><option value="10">10 km</option><option value="5">5 km</option><option value="3">3 km</option><option value="42.195">Marathon · 42.195 km</option></select></div></div></div><div class="panel col7"><div class="micro">MATHEMATICAL SCENARIO</div><h2 style="margin-top:8px">Your projected finish</h2><div class="timebig" id="raceProjected">—</div><div class="metric-pair"><span>Overall pace</span><strong id="raceOverall">—</strong></div><div class="metric-pair"><span>Walk breaks</span><strong id="raceWalks">—</strong></div><div id="projectedCheckpoints"></div><p class="guide">Walking covers distance too. No extra walk break is added after the finish. Terrain, fatigue, weather and fueling are not modelled.</p></div></div></section>
+<section class="tabs" id="tab-training" hidden><div class="section-heading"><div class="micro">YOUR STRUCTURED TRAINING</div><h1>Make room for your running.</h1><p>An editable weekly journal. Add your own sessions or a plan agreed with your coach.</p></div><div class="panel"><div class="between"><h2>Your week</h2><span class="pill purple" id="planChecked">0 of 7 checked</span></div><div class="week-switch"><button class="btn" id="planPrev" aria-label="Previous week">← Prev</button><strong id="planWeekLabel"></strong><button class="btn" id="planNext" aria-label="Next week">Next →</button></div><div class="session-grid" id="planDays"></div><p class="guide">Tap a day to name the session and add notes. Check-ins track your plan; log the completed workout separately in Activities. This page does not prescribe a personalized training program.</p></div></section>
+<section class="tabs" id="tab-nutrition" hidden><div class="section-heading"><div class="micro">FUEL YOUR CONSISTENCY</div><h1>Diet &amp; fuel</h1><p>Record what worked for you before, during and after training.</p></div><div class="grid"><div class="panel col6"><h2>Food &amp; hydration journal</h2><form class="inputs" id="fuelForm" style="margin-top:16px"><div class="field"><label for="fuelDate">Date</label><input id="fuelDate" type="date" required></div><div class="field"><label for="fuelWhen">Timing</label><select id="fuelWhen"><option>Before workout</option><option>During workout</option><option>After workout</option><option>Daily note</option></select></div><div class="field full"><label for="fuelContent">Food / drink / notes</label><textarea id="fuelContent" maxlength="700" required placeholder="What did you try? How did it feel?"></textarea></div><button class="btn primary" type="submit">＋ Save nutrition note</button></form></div><div class="panel col6"><h2>Your notes</h2><div id="fuelList" style="margin-top:16px"></div></div></div></section>
+<section class="tabs" id="tab-milestones" hidden><div class="section-heading"><div class="micro">CELEBRATE YOUR PROGRESS</div><h1>Your milestones</h1><p>Fastest confirmed results in your own journal. Missing results stay blank.</p></div><div class="grid" id="milestoneCards"></div><div class="notebox" style="margin-top:18px">Only activities marked confirmed with a matching recorded distance are included. Official race distance and timing are used when recorded separately from GPS data.</div></section>
+<section class="tabs" id="tab-coach" hidden><div class="section-heading"><div class="micro">REFLECT, REVIEW, REPEAT</div><h1>Coach's desk</h1><p>A home for dated feedback attached to your workouts.</p></div><div class="panel" style="margin-bottom:18px"><h2>Your coaching workflow</h2><p>Discuss your screenshots or training with your coach or in ChatGPT, then add the review to the matching activity or import a reviewed JSON update.</p><p class="guide">This static webpage has no live AI connection and does not read your chats or analyze screenshots automatically.</p><button class="btn primary" data-goto="activities">Open workout library →</button></div><div class="panel"><h2>Saved coaching reviews</h2><div id="reviewFeed" style="margin-top:16px"></div></div></section>
+<section class="tabs" id="tab-settings" hidden><div class="section-heading"><div class="micro">YOUR DATA, YOUR CONTROL</div><h1>Data &amp; privacy</h1><p>A public app with a journal that stays in your browser. No account or cloud sync.</p></div><div class="grid"><div class="panel col6"><h2>Back up or restore your journal</h2><p>Export your workouts, reviews, splits, training check-ins, session notes, goals and food journal.</p><button class="btn primary" id="exportBackup">↓ Export full backup (.json)</button><div class="hr"></div><label for="importFile">Choose a JSON backup or reviewed workout update</label><input accept=".json,application/json" aria-label="Choose JSON update file" id="importFile" type="file" style="margin:10px 0"><button class="btn" id="importBtn">↑ Import selected JSON</button><p class="guide" id="importMsg" role="status"></p></div><div class="panel col6"><h2>How your data is stored</h2><ul class="list-unstyled"><li>New visitors start with an empty journal.</li><li>Entries and imported backups stay in this browser's local storage.</li><li>No analytics, application API calls or uploads are made.</li><li>Data does not sync between browsers, devices or site addresses.</li><li>Export a backup before clearing browser storage. Backups can contain health information.</li><li>The public source contains no personal workout history.</li></ul><button class="btn danger" id="clearData" style="margin-top:16px">Erase local dashboard data</button></div><div class="panel col6"><h2>Your goal</h2><form id="goalForm" class="inputs" style="margin-top:16px"><div class="field full"><label for="goalName">Goal or event name</label><input id="goalName" maxlength="100" placeholder="Your next running adventure"></div><div class="field"><label for="goalDate">Event date (optional)</label><input id="goalDate" type="date"></div><div class="field"><label for="weeklyGoal">Weekly ring reference (km)</label><input id="weeklyGoal" type="number" min="1" max="300" value="15" required></div><button class="btn primary" type="submit">Save goal</button></form></div><div class="panel col6"><h2>Personal heart-rate guidelines</h2><p class="guide">Optional values from your watch or coach. No personal zones are preloaded; saved values are notes, not validated physiological thresholds.</p><div class="inputs"><div class="field full"><label for="hrEasyCap">Your easy HR ceiling (bpm)</label><input id="hrEasyCap" type="number" min="60" max="220" placeholder="Optional"></div><div class="field"><label for="hrZ3Low">Your Z3 lower boundary</label><input id="hrZ3Low" type="number" min="60" max="240" placeholder="Optional"></div><div class="field"><label for="hrZ3High">Your Z3 upper boundary</label><input id="hrZ3High" type="number" min="60" max="240" placeholder="Optional"></div></div><button id="saveZones" class="btn primary" style="margin-top:15px">Save HR guidelines</button><p id="zoneStatus" class="guide" role="status"></p></div></div></section>
+<footer class="foot">StrideCoach AI · Your training, your journal · Data stays on your device</footer>
+</main></div>
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation"><a href="#tab-overview" data-tab="overview" class="active"><span>◈</span>Overview</a><a href="#tab-activities" data-tab="activities"><span>◉</span>Activities</a><a href="#tab-training" data-tab="training"><span>▦</span>Plan</a><a href="#tab-strategy" data-tab="strategy"><span>↔</span>Run / walk</a><button id="mobileMoreButton" aria-expanded="false" aria-controls="mobileMoreMenu"><span>•••</span>More</button></nav>
+<div id="mobileMoreBackdrop" class="mobile-more-backdrop" hidden></div><nav id="mobileMoreMenu" class="mobile-more-menu" aria-label="More sections" hidden><div class="between"><strong>Your training hub</strong><button class="btn tiny" id="mobileMoreClose" aria-label="Close more menu">✕</button></div><button data-tab="nutrition">Diet &amp; fuel</button><button data-tab="milestones">Milestones</button><button data-tab="coach">Coach's desk</button><button data-tab="settings">Data &amp; privacy</button></nav>
+<div class="modal" id="workoutModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="dialog"><div class="between"><h2 id="modalTitle"></h2><button class="btn tiny" data-close aria-label="Close dialog">✕</button></div><div id="modalContent" style="margin-top:18px"></div></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="./app.js"></script>
+
+</body></html>

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+*.log
+.env
+.env.*
+backups/
+StrideCoach_AI_Backup*.json
+*original.html
