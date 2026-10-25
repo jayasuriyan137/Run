@@ -1,4 +1,4 @@
-name: Test and publish dashboard
+name: Test private dashboard
 
 on:
   push:
@@ -7,11 +7,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: github-pages
+  group: private-dashboard-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -27,17 +25,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build
       - run: npm test
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          path: dist
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy dashboard
-        id: deployment
-        uses: actions/deploy-pages@v4
+          name: stridecoach-private-review
+          path: dist/index.html
+          retention-days: 7

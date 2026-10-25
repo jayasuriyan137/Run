@@ -1,0 +1,19 @@
+{
+  "name": "StrideCoach AI private review",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:5.2.3-24-bookworm",
+  "forwardPorts": [
+    4173
+  ],
+  "portsAttributes": {
+    "4173": {
+      "label": "StrideCoach AI private dashboard",
+      "onAutoForward": "openBrowser",
+      "protocol": "http"
+    }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
+  "postCreateCommand": "npm ci && npm run build",
+  "postStartCommand": "nohup npm run preview > /tmp/stridecoach-preview.log 2>&1 &"
+}
